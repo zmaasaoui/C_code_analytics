@@ -1,57 +1,3 @@
-// import java.io._
-
-// // Attempt to retrieve the file name from the CPG's File node (fallback to "unknown_file")
-// val fileNameOpt = cpg.file.headOption.map(_.name)
-// val fileName = fileNameOpt.getOrElse("unknown_file")
-
-// // Define the output CSV file path (this will be created in the working directory)
-// val csvFile = new File("metrics_output.csv")
-
-// // Open the file in append mode (set the second parameter to false if you wish to overwrite)
-// val bw = new BufferedWriter(new FileWriter(csvFile, true))
-
-// // 1. Count of control structures
-// val controlStructureCount = cpg.controlStructure.l.size
-// bw.write(s"${fileName},controlStructures,${controlStructureCount}\n")
-
-// // 2. Count of functions (methods)
-// val functionCount = cpg.method.l.size
-// bw.write(s"${fileName},functions,${functionCount}\n")
-
-// // 3. Count of if conditions
-// val ifConditionCount = cpg.controlStructure.filter(_.controlStructureType == "IF").l.size
-// bw.write(s"${fileName},ifConditions,${ifConditionCount}\n")
-
-// // 4. Count of loops (for, while, do)
-// val loopCount = cpg.controlStructure.filter(cs =>
-//   cs.controlStructureType == "FOR" || cs.controlStructureType == "WHILE" || cs.controlStructureType == "DO"
-// ).l.size
-// bw.write(s"${fileName},loops,${loopCount}\n")
-
-// // 5. Count of libc calls (for example, by checking for common libc function names)
-// val libcCallsCount = cpg.call.filter(call =>
-//   call.code.contains("printf") || call.code.contains("malloc") || call.code.contains("free")
-// ).l.size
-// bw.write(s"${fileName},libcCalls,${libcCallsCount}\n")
-
-// // 6. Count of arrays (assuming array declarations include a '[' in their code)
-// val arrayCount = cpg.local.filter(_.code.contains("[")).l.size
-// bw.write(s"${fileName},arrays,${arrayCount}\n")
-
-// // 7. Count of global variables
-// val globalVarCount = cpg.local.filter(local => local.method.name.l.contains("<global>")).l.size
-// bw.write(s"${fileName},globalVariables,${globalVarCount}\n")
-
-// // 8. Count of 'switch'
-// val switchCount = cpg.controlStructure.filter(cs => cs.code.trim.startsWith("switch")).l.size
-// bw.write(s"${fileName},switch,${switchCount}\n")
-
-
-// bw.close()
-
-// println(s"Metrics written to: ${csvFile.getAbsolutePath}")
-
-
 import java.io._
 
 // Attempt to retrieve the file name from the CPG's File node (fallback to "unknown_file")
@@ -96,7 +42,7 @@ val functionCount = cpg.method.size
 // 7. Count of control structures (all kinds)
 val controlStructureCount = cpg.controlStructure.size
 
-// (Optional) Count of loops, if you still want them, not included in final CSV columns:
+// (Optional) Count of loops, not included in final CSV columns:
 // val loopCount = cpg.controlStructure.filter(cs => 
 //   cs.controlStructureType == "FOR" || 
 //   cs.controlStructureType == "WHILE" || 
