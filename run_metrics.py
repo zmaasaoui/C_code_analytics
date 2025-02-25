@@ -5,14 +5,14 @@ import sys
 def generate_cpg(file_path, output_dir):
     """
     Generate a CPG for a single C file.
-    Adjust the command based on your Joern installation/version.
+    Joern version used is Version: 4.0.233
     """
     base_name = os.path.basename(file_path)
     file_name, _ = os.path.splitext(base_name)
     output_cpg = os.path.join(output_dir, f"{file_name}_cpg.bin")
     
     # Command using joern-parse:
-    command = ["joern-parse", "--language", "cpp", "--output", output_cpg, file_path]
+    command = ["joern-parse", "--output", output_cpg, file_path]
     
     try:
         subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     
     # Iterate over each .c file in the input directory
     for file in os.listdir(input_dir):
-        if file.endswith(".c"):
+        if file.endswith(".cpp"):
             file_path = os.path.join(input_dir, file)
             # Generate the CPG for this file
             cpg_file = generate_cpg(file_path, cpg_dir)
