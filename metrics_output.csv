@@ -1,0 +1,4 @@
+file_name,functions,globalVariables,arrays,libCalls,ifConditions,switch,controlStructures
+1.cpp,33,0,0,0,12,0,24
+test.cpp,11,0,0,2,1,0,1
+prime_vul.cpp,4,0,0,0,0,1,6

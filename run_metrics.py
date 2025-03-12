@@ -5,14 +5,14 @@ import sys
 def generate_cpg(file_path, output_dir):
     """
     Generate a CPG for a single C file.
-    Adjust the command based on your Joern installation/version.
+    Joern version used is Version: 4.0.233
     """
     base_name = os.path.basename(file_path)
     file_name, _ = os.path.splitext(base_name)
     output_cpg = os.path.join(output_dir, f"{file_name}_cpg.bin")
     
     # Command using joern-parse:
-    command = ["joern-parse", "--language", "cpp", "--output", output_cpg, file_path]
+    command = ["joern-parse", "--output", output_cpg, file_path]
     
     try:
         subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
@@ -40,18 +40,19 @@ def run_metrics_on_cpg(cpg_path, script_path):
 
 if __name__ == '__main__':
      # Directory with C files
-    input_dir = "/home/zineb/Desktop/Joern/c_files_metrics/test_files"
+    input_dir = "./test_files"
+    
     # Directory where generated CPGs will be stored
-    cpg_dir = "/home/zineb/Desktop/Joern/c_files_metrics/test_output"
+    cpg_dir = "./test_output"
     # Path to Joern query script that extracts metrics (e.g., metrics.sc)
-    metrics_script = "/home/zineb/Desktop/Joern/c_files_metrics/metrics.sc"
+    metrics_script = "metrics.sc"
     
     # Create the CPG output directory if it doesn't exist
     os.makedirs(cpg_dir, exist_ok=True)
     
     # Iterate over each .c file in the input directory
     for file in os.listdir(input_dir):
-        if file.endswith(".c"):
+        if file.endswith(".cpp"):
             file_path = os.path.join(input_dir, file)
             # Generate the CPG for this file
             cpg_file = generate_cpg(file_path, cpg_dir)
