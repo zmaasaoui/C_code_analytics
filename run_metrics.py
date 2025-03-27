@@ -53,6 +53,7 @@ if __name__ == '__main__':
     
     # Path to Joern query script that extracts metrics
     metrics_script = "/app/metrics.sc"
+
     
     # Create the CPG output directory if it doesn't exist
     os.makedirs(cpg_dir, exist_ok=True)
