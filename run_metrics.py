@@ -27,8 +27,14 @@ def run_metrics_on_cpg(cpg_path, script_path):
     """
     Run the Joern metrics script on the provided CPG.
     """
-    # Command to run Joern with metrics script.
-    command = ["joern", "--script", script_path, "--cpg", cpg_path]
+    # Ensure the script exists
+    if not os.path.exists(script_path):
+        print(f"[-] Error: Metrics script not found at {script_path}")
+        return None
+
+    # Command to run Joern with metrics script
+    command = ["joern", "--script", script_path, cpg_path]
+    
     try:
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
         print(f"[+] Metrics extracted for {cpg_path}")
@@ -39,17 +45,24 @@ def run_metrics_on_cpg(cpg_path, script_path):
         return None
 
 if __name__ == '__main__':
-     # Directory with C files
-    input_dir = "/home/zineb/Desktop/Joern/c_files_metrics/test_files"
-    # Directory where generated CPGs will be stored
-    cpg_dir = "/home/zineb/Desktop/Joern/c_files_metrics/test_output"
-    # Path to Joern query script that extracts metrics (e.g., metrics.sc)
-    metrics_script = "/home/zineb/Desktop/Joern/c_files_metrics/metrics.sc"
+    # Directory with C files
+    input_dir = "data/test_files"
+    
+    # Directory where generated CPGs will be stored (using mounted volume)
+    cpg_dir = "data/test_output"
+    
+    # Path to Joern query script that extracts metrics
+    metrics_script = "/app/metrics.sc"
     
     # Create the CPG output directory if it doesn't exist
     os.makedirs(cpg_dir, exist_ok=True)
     
-    # Iterate over each .c file in the input directory
+    # Ensure the metrics script exists
+    if not os.path.exists(metrics_script):
+        print(f"[-] Error: Metrics script not found at {metrics_script}")
+        sys.exit(1)
+    
+    # Iterate over each .cpp file in the input directory
     for file in os.listdir(input_dir):
         if file.endswith(".cpp"):
             file_path = os.path.join(input_dir, file)

@@ -13,5 +13,5 @@ def c_file_to_cpp(files_directory):
             print(f"Renamed: {file_path} -> {new_file_path}")
 
 if __name__ == "__main__":
-    files_directory = "/home/zineb/Desktop/Joern/c_files_metrics/dataset/valid"
+    files_directory = "data/test_files"
     c_file_to_cpp(files_directory)
