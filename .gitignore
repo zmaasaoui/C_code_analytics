@@ -1,4 +1,7 @@
 dataset/
 joern_env/
-test_output/
+data/test_output/*
+data/metrics_output.csv
+config/
+neo4j_export.py
 workspace/

@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  joern:
+    # image: ghcr.io/joernio/joern:nightly
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+    command: sh -c "python /app/run_metrics.py && tail -f /dev/null"
+    # command: /bin/bash -c "echo 'Starting container...'; exec /bin/bash"
